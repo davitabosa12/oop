@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import br.ufc.*;
+import br.ufc.exception.QuartoNuloException;
 public class EstrelaTest {
 
 	@Test

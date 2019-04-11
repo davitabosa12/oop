@@ -1,5 +1,9 @@
 package br.ufc;
 
+import br.ufc.exception.QuartoNuloException;
+import br.ufc.exception.NumeroInvalidoException;
+import br.ufc.exception.PrecoInvalidoException;
+
 public class Quarto {
 	private int numero;
 	private int andar;
@@ -8,6 +12,12 @@ public class Quarto {
 	private int numReservas;
 	
 	public Quarto(int numero, int andar, float preco){
+		if(preco < 0){
+			throw new PrecoInvalidoException("preco nao pode ser negativo");
+		}
+		if(numero < 0){
+			throw new NumeroInvalidoException("numero nao pode ser negativo");
+		}
 		this.numero = numero;
 		this.andar = andar;
 		this.preco = preco;
@@ -83,11 +93,12 @@ public class Quarto {
 	
 	public float calculaLucro(float entrada){
 		if(entrada <0){
-			throw new ValorInvalidoException("Valor de entrada nao pode ser negativo");
+			throw new PrecoInvalidoException("Valor de entrada nao pode ser negativo");
 		} else if (entrada == 0){
-			throw new ValorInvalidoException("Valor de entrada nao pode ser zero");
+			throw new PrecoInvalidoException("Valor de entrada nao pode ser zero");
 		}
-		return preco * numReservas - entrada;
+		float lucro = preco * numReservas - entrada;
+		return  lucro < 0 ? 0 : lucro;
 	}
 	
 	public String imprimeQtdEstrelas(){

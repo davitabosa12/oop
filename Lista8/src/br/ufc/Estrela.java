@@ -1,5 +1,7 @@
 package br.ufc;
 
+import br.ufc.exception.QuartoNuloException;
+
 public class Estrela {
 
 	public Estrela(){

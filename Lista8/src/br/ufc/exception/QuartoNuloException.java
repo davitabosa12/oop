@@ -1,4 +1,4 @@
-package br.ufc;
+package br.ufc.exception;
 
 public class QuartoNuloException extends Exception {
 

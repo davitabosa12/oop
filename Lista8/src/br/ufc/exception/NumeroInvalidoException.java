@@ -1,27 +1,27 @@
-package br.ufc;
+package br.ufc.exception;
 
-public class ValorInvalidoException extends RuntimeException {
+public class NumeroInvalidoException extends RuntimeException {
 
-	public ValorInvalidoException() {
+	public NumeroInvalidoException() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ValorInvalidoException(String message) {
+	public NumeroInvalidoException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
 
-	public ValorInvalidoException(Throwable cause) {
+	public NumeroInvalidoException(Throwable cause) {
 		super(cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public ValorInvalidoException(String message, Throwable cause) {
+	public NumeroInvalidoException(String message, Throwable cause) {
 		super(message, cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public ValorInvalidoException(String message, Throwable cause, boolean enableSuppression,
+	public NumeroInvalidoException(String message, Throwable cause, boolean enableSuppression,
 			boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 		// TODO Auto-generated constructor stub

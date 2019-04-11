@@ -2,15 +2,14 @@ package br.ufc.test;
 
 import static org.junit.Assert.*;
 
-
-import br.ufc.ValorInvalidoException;
-import br.ufc.QuartoNuloException;
-
 import java.util.Random;
 
 import org.junit.Test;
 
 import br.ufc.Quarto;
+import br.ufc.exception.QuartoNuloException;
+import br.ufc.exception.NumeroInvalidoException;
+import br.ufc.exception.PrecoInvalidoException;
 
 public class QuartoTest {
 
@@ -18,12 +17,13 @@ public class QuartoTest {
 	@Test
 	public void testReservaQuarto() {
 		Quarto quarto = new Quarto(132, 1, 200);
-		assertTrue(quarto.isDisponibilidade());
+		
+			assertTrue(quarto.isDisponibilidade());
+		
 		int init = quarto.getNumReservas();
 		quarto.reservaQuarto();
-		assertFalse(quarto.isDisponibilidade());
-		System.out.println(init);
-		System.out.println(quarto.getNumReservas());
+		
+			assertFalse(quarto.isDisponibilidade());
 		
 		assert init < quarto.getNumReservas();
 	}
@@ -51,7 +51,7 @@ public class QuartoTest {
 		assert expected == quarto.calculaLucro(INVESTIMENTO);
 	}
 	
-	@Test(expected = ValorInvalidoException.class)
+	@Test(expected = PrecoInvalidoException.class)
 	public void testValorNegativo(){
 		Random random = new Random();
 		final int NUMERO_RESERVAS = random.nextInt(200);
@@ -64,7 +64,18 @@ public class QuartoTest {
 		assert expected == quarto.calculaLucro(INVESTIMENTO);
 	}
 	
-	@Test(expected = ValorInvalidoException.class)
+	@Test(expected = PrecoInvalidoException.class)
+	public void testValorNegativoDiaria(){
+			
+		Quarto quarto = new Quarto(123, 1, -150);
+	}
+	
+	@Test(expected = NumeroInvalidoException.class)
+	public void testAndarNegativo(){
+		Quarto quarto = new Quarto(-123, 1, 150);
+	}
+	
+	@Test(expected = PrecoInvalidoException.class)
 	public void testValorZero(){
 		Random random = new Random();
 		final int NUMERO_RESERVAS = random.nextInt(200);
@@ -75,6 +86,12 @@ public class QuartoTest {
 		quarto.setNumReservas(NUMERO_RESERVAS);
 		float expected = (NUMERO_RESERVAS * PRECO_QUARTO) - INVESTIMENTO;
 		assert expected == quarto.calculaLucro(INVESTIMENTO);
+	}
+	
+	@Test
+	public void testLucroNegativo(){
+		Quarto quarto = new Quarto(123, 1, 100);
+		assert quarto.calculaLucro(1000) == 0;
 	}
 	
 
