@@ -1,5 +1,8 @@
 package br.ufc.oop;
 
+import br.ufc.oop.exception.DepositoSemSucessoException;
+import br.ufc.oop.exception.SaqueSemSucessoException;
+
 public class ContaCorrente extends ContaBancaria implements Imprimivel{
 
 	private double taxaDeOperacao;
@@ -9,17 +12,21 @@ public class ContaCorrente extends ContaBancaria implements Imprimivel{
 	}
 
 	@Override
-	public void sacar(double valor) {
+	public void sacar(double valor) throws SaqueSemSucessoException{
 		double novoSaldo = saldo - valor - taxaDeOperacao;
 		if(saldo >= valor + taxaDeOperacao)
 			saldo -= valor + taxaDeOperacao;
+		else
+			throw new SaqueSemSucessoException("Valor maior que o saldo");
 
 	}
 
 	@Override
-	public void depositar(double valor) {
+	public void depositar(double valor) throws DepositoSemSucessoException {
 		if(saldo + valor >= taxaDeOperacao)
 			saldo += valor - taxaDeOperacao;
+		else
+			throw new DepositoSemSucessoException();
 		
 		
 
@@ -44,6 +51,19 @@ public class ContaCorrente extends ContaBancaria implements Imprimivel{
 		System.out.println(sb.toString());
 		
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		return true;
+	}
+	
+	
 	
 
 }

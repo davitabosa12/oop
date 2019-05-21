@@ -1,5 +1,7 @@
 package br.ufc.oop;
 
+import br.ufc.oop.exception.SaqueSemSucessoException;
+
 public class ContaPoupanca extends ContaBancaria implements Imprimivel {
 
 	private double limite; 
@@ -10,10 +12,10 @@ public class ContaPoupanca extends ContaBancaria implements Imprimivel {
 	}
 
 	@Override
-	public void sacar(double valor) {
+	public void sacar(double valor) throws SaqueSemSucessoException {
 		double novoSaldo = saldo - valor;
 		if(novoSaldo < -this.limite){
-			//erro
+			throw new SaqueSemSucessoException();
 		}else {
 			this.saldo = novoSaldo;
 		}
@@ -43,6 +45,17 @@ public class ContaPoupanca extends ContaBancaria implements Imprimivel {
 		sb.append("limite=").append(limite);
 		sb.append("]");
 		System.out.println(sb.toString());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		return true;
 	}
 	
 	
