@@ -3,6 +3,7 @@ package br.ufc.oop;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ufc.oop.exception.ContaExistenteException;
 import br.ufc.oop.exception.ContaNaoEncontradaException;
 
 public class Banco implements Imprimivel{
@@ -13,9 +14,10 @@ public class Banco implements Imprimivel{
 		contas = new ArrayList<>();
 	}
 	
-	public void inserir(ContaBancaria conta){
+	public void inserir(ContaBancaria conta) throws ContaExistenteException{
 		try {
 			procurarConta(conta);
+			throw new ContaExistenteException("A conta " + conta +" ja existe");
 		} catch (ContaNaoEncontradaException e) {
 			contas.add(conta);
 		}

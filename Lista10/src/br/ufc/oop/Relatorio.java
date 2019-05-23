@@ -1,7 +1,7 @@
 package br.ufc.oop;
 
 public class Relatorio {
-	public static void gerarRelatório(Imprimivel i){
+	public static void gerarRelatorio(Imprimivel i){
 		i.mostrarDados();
 	}
 }

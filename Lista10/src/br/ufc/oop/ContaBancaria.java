@@ -2,6 +2,7 @@ package br.ufc.oop;
 
 import br.ufc.oop.exception.DepositoSemSucessoException;
 import br.ufc.oop.exception.SaqueSemSucessoException;
+import br.ufc.oop.exception.TransferenciaSemSucessoException;
 
 public abstract class ContaBancaria implements Imprimivel{
 	protected int numeroConta;
@@ -9,17 +10,19 @@ public abstract class ContaBancaria implements Imprimivel{
 	
 	public abstract void sacar(double valor) throws SaqueSemSucessoException;
 	public abstract void depositar(double valor) throws DepositoSemSucessoException;
-	public void transferir(double valor, ContaBancaria favorecido){
+	public void transferir(double valor, ContaBancaria favorecido) throws TransferenciaSemSucessoException{
 		double estorno = this.saldo;
 		try {
 			this.sacar(valor);
 			favorecido.depositar(valor);
 		} catch (SaqueSemSucessoException e) {
-			System.err.println("Saque sem sucesso");
+			
 			this.saldo = estorno;
+			throw new TransferenciaSemSucessoException("Conta nao possui saldo suficiente");
 		} catch (DepositoSemSucessoException e) {
-			System.err.println("Deposito sem sucesso");
+			
 			this.saldo = estorno;
+			throw new TransferenciaSemSucessoException("Destino nao pode receber esta quantia no momento");
 		}
 		
 		
