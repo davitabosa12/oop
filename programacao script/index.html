@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lotto</title>
+    
+</head>
+<body>
+    <h1>Lotto</h1>
+    <h3>Insira três números de 0 à 99</h3>
+    <input type="number" min="0" max="99" id="input_1" placeholder="Número 1">
+    <input type="number" min="0" max="99" id="input_2" placeholder="Número 2">
+    <input type="number" min="0" max="99" id="input_3" placeholder="Número 3">
+    <button onclick="enviarAjax()">Enviar</button>
+    
+    <p id="resposta"></p>
+
+    <script>
+
+        function enviarAjax(){
+            let input1 = Number.parseInt(document.getElementById("input_1").value);
+            let input2 = Number.parseInt(document.getElementById("input_2").value);
+            let input3 = Number.parseInt(document.getElementById("input_3").value);
+
+            
+            if(!checarNumeroValido(input1)){
+                alert("Numero 1 inválido")
+                return;
+            }
+            if(!checarNumeroValido(input2)){
+                alert("Numero 2 inválido")
+                return;
+            }
+            if(!checarNumeroValido(input3)){
+                alert("Numero 3 inválido")
+                return;
+            }
+
+
+            let xhttp = new XMLHttpRequest();
+            var formData = {};
+
+            formData.num1 = input1;
+            formData.num2 = input2;
+            formData.num3 = input3;
+            
+
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4) {
+                    if(this.status == 200){
+                        const serverResult = JSON.parse(xhttp.responseText);
+
+                        document.getElementById("resposta").innerHTML = `Sua pontuação: ${serverResult.pontuacao.toLocaleString()}<br>
+                        Melhor pontuação: ${serverResult.recorde.toLocaleString()}`;
+                    }
+                    if(this.status == 400){
+                        document.getElementById("resposta").innerHTML = "Requisição mal formada";
+                    }
+                }
+                
+            };
+            xhttp.open("POST", "/ajax");
+            xhttp.send(JSON.stringify(formData));
+            
+        }
+
+        function checarNumeroValido(num){
+            return Number.isInteger(num) && (num <=99) && (num >= 0);
+        }
+        
+    </script>
+</body>
+</html>
