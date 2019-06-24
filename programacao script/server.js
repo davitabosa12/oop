@@ -6,9 +6,35 @@ var array;
 
 console.log("Lendo valores...")
 fs.readFile("valores.json", (err, data) =>{
-    array = JSON.parse(data);
-    console.log("Valores lidos.");
-    startServer();
+    if(err){
+        console.log("Erro ao ler valores.json. Tentando criar um novo...");
+        generateValues(data =>{
+            array = JSON.parse(data);
+            startServer();
+        });
+    } else {
+        try {
+            array = JSON.parse(data);    
+            console.log("Valores lidos.");
+            startServer();
+        } catch (error) {
+            console.log("O arquivo disponivel não é um array JSON. Deletando e criando um novo...");
+            fs.unlink("valores.json", (err) =>{
+                if(err){
+                    console.log("Não foi possivel deletar :<");
+                } else {
+                    generateValues(data =>{
+                        array = JSON.parse(data);
+                        startServer();
+                    });                    
+                }
+            });
+        }
+        
+        
+    }
+    
+    
 });
 
 
@@ -64,4 +90,21 @@ function startServer(){
     server.listen(8080, ()=>{
         console.log("Ouvindo na porta 8080");
     });
+}
+
+function generateValues(callback){
+    let newArray = [];
+        for(let i = 0; i < 100; i++){
+            newArray[i] = Math.floor(Math.random() * 1000);
+        }
+        const jsonValues = JSON.stringify(newArray);
+        fs.writeFile("valores.json", jsonValues, (error) =>{
+            if(error){
+                console.log("Nao foi possivel criar novo arquivo. " + error);
+            } else {
+                console.log("valores.json criado com sucesso");
+                
+                callback(jsonValues);
+            }
+        });
 }
