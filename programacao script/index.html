@@ -5,18 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Lotto</title>
-    
+    <style>
+        h1, h3, p{
+            font-family: sans-serif;
+            letter-spacing: 1px;
+            color: #eee;
+            text-align: center;
+        }
+        input{
+            width: 100px;
+            padding: 2px;
+            margin: 10px;
+            text-align: center;
+        }
+        body{
+            background-color: deepskyblue;
+        }
+        button{
+            text-decoration: none;
+            border: none;
+            color: #eee;
+            background-color: green;
+            padding-right: 20px;
+            padding-left: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            font-family: fantasy;
+            font-size: 1.6em;
+            transition: 0.2s;
+            opacity: 0.8;
+            letter-spacing: 1px;
+        }
+        button:hover{
+            opacity: 1;
+            transition: 0.4s;
+        }
+        .centralizado{
+            text-align: center;
+        }
+        .valign{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -75%);
+        }
+    </style>
 </head>
 <body>
-    <h1>Lotto</h1>
-    <h3>Insira três números de 0 à 99</h3>
-    <input type="number" min="0" max="99" id="input_1" placeholder="Número 1">
-    <input type="number" min="0" max="99" id="input_2" placeholder="Número 2">
-    <input type="number" min="0" max="99" id="input_3" placeholder="Número 3">
-    <button onclick="enviarAjax()">Enviar</button>
-    
-    <p id="resposta"></p>
-
+    <div class= "valign">
+            <h1>Lotto</h1>
+            <h3>Insira três números de 0 à 99</h3>
+            <div class="centralizado">
+                    <input type="number" min="0" max="99" id="input_1" placeholder="Número 1">
+                    <input type="number" min="0" max="99" id="input_2" placeholder="Número 2">
+                    <input type="number" min="0" max="99" id="input_3" placeholder="Número 3">
+                    <br>
+                    <button onclick="enviarAjax()">Enviar</button>
+                    
+                    <p id="resposta"></p>    
+            </div>
+    </div>
     <script>
 
         function enviarAjax(){
