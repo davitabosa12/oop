@@ -33,7 +33,7 @@ fontsize: 10pt
   - 10 Lembretes com regras simples
   - 10 Lembretes com regras complexas
 
-  Originalmente, os fatores eram 1 e 10 lembretes, mas devido à metodologia utilizada, a quantidade de fatores foi reduzida.
+  Originalmente, os fatores eram 5 e 10 lembretes com regras simples e complexas, mas a quantidade de fatores foi reduzida.
 
 ## Carga de trabalho 
 
