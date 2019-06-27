@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 import csv
 
-def remove_outliers(x, outlierConstant):
+def remove_outliers(x, outlierConstant = 1.5):
     a = np.array(x)
     upper_quartile = np.percentile(a, 75)
     lower_quartile = np.percentile(a, 25)
@@ -65,14 +65,8 @@ with open("medicoes.csv") as medicoes_csv:
         normal_single.append(float(row[2]))
         normal_compound.append(float(row[3]))
 
-
-nomes = ("EasyContext", "Normal")
-y_pos = np.arange(len(nomes))
-values = [3180, 3088]
-
-
-plt.bar(y_pos, values, 0.2)
-plt.ylabel("Tamanho (kB)")
-plt.xticks(y_pos, nomes)
-plt.title("Build dos projetos")
+plt.title("EasyContext - regras complexas")
+chosen = ec_compound
+plt.boxplot(chosen)
+plt.ylabel("Tempo de execução (ms)")
 plt.show()
